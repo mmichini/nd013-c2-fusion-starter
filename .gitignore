@@ -1,0 +1,10 @@
+__pycache__/
+
+# raw tfrecord data files
+dataset
+
+# pre-computed detections
+results
+
+# pre-trained models
+tools/objdet_models/*/pretrained
