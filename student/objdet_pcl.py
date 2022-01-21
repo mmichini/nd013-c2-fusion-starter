@@ -15,6 +15,7 @@ import misc.objdet_tools as tools
 from tools.waymo_reader.simple_waymo_open_dataset_reader import dataset_pb2, label_pb2
 from tools.waymo_reader.simple_waymo_open_dataset_reader import utils as waymo_utils
 import cv2
+import open3d as o3d
 import numpy as np
 import torch
 import zlib
@@ -31,8 +32,9 @@ sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
 
 # object detection tools and helper functions
 
-
 # visualize lidar point-cloud
+
+
 def show_pcl(pcl):
 
     ####### ID_S1_EX2 START #######
@@ -40,14 +42,28 @@ def show_pcl(pcl):
     print("student task ID_S1_EX2")
 
     # step 1 : initialize open3d with key callback and create window
+    vis = o3d.visualization.VisualizerWithKeyCallback()
+    vis.create_window(width=1280, height=720)
 
     # step 2 : create instance of open3d point-cloud class
+    pcd = o3d.geometry.PointCloud()
 
     # step 3 : set points in pcd instance by converting the point-cloud into 3d vectors (using open3d function Vector3dVector)
 
+    # only show the xyz points
+    pcl = pcl[:, :3]
+    pcd.points = o3d.utility.Vector3dVector(pcl)
+
     # step 4 : for the first frame, add the pcd instance to visualization using add_geometry; for all other frames, use update_geometry instead
+    vis.add_geometry(pcd)
 
     # step 5 : visualize point cloud and keep window open until right-arrow is pressed (key-code 262)
+    def key_callback(vis):
+        vis.close()
+
+    right_arrow_key = 262
+    vis.register_key_callback(right_arrow_key, key_callback)
+    vis.run()
 
     #######
     ####### ID_S1_EX2 END #######
