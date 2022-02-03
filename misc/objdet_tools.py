@@ -421,7 +421,7 @@ def project_labels_into_camera(camera_calibration, image, labels, labels_valid, 
             colour = (255, 0, 0)
 
         # only show labels of type "vehicle"
-        if(label.type == label_pb2.Label.Type.TYPE_VEHICLE):
+        if(label.type == 1):
             waymo_utils.draw_3d_box(image, vehicle_to_image, label, colour=colour)
 
     # resize image
@@ -433,4 +433,3 @@ def project_labels_into_camera(camera_calibration, image, labels, labels_valid, 
         return img_resized
     else:
         return image
-
