@@ -6,29 +6,29 @@ In the midterm project, we were asked to visualize LIDAR point cloud data and de
 
 ### Frame 0
 
-In this frame, it is clear that there are multiple other vehicles in the scene. A noteworthy one is the truck towing a trailer just in front and to the right of our vehicle. This immediately makes me think of how we might treat this from an object detection point of view. The truck+trailer is clearly one vehicle, but the truck may be detected as its own vehicle without the trailer, and therefore have an incorrect bounding box.
+In this frame, it is clear that there are multiple other vehicles in the scene. A noteworthy one is the truck towing a trailer (red box) just in front and to the right of our vehicle. This immediately makes me think of how we might treat this from an object detection point of view. The truck+trailer is clearly one vehicle, but the truck may be detected as its own vehicle without the trailer, and therefore have an incorrect bounding box.
 
-There are a few bright spots in the intensity image, notably the license plate of the trailer.
+There are a few bright spots in the intensity image, notably the license plate of the trailer (annotated with blue boxes in the intensity image).
 
 #### Point cloud
 
-![frame_0_pcl](img/project_step_1/frame_0_pcl.png)
+![frame_0_pcl](img/project_step_1/annotated/frame_0_pcl.png)
 
 #### Range and Intensity
 
-![frame_0_range](img/project_step_1/frame_0_range.png)
+![frame_0_range](img/project_step_1/annotated/frame_0_range.png)
 
 ### Frame 40
 
-In this frame, we are beginning to overtake the truck with the trailer. Very prominent features (in terms of intensity) include road signs and vehicle tail lights.
+In this frame, we are beginning to overtake the truck with the trailer. Very prominent features (in terms of intensity) include road signs and vehicle tail lights. These are annotated with blue boxes in the intensity image.
 
 #### Point cloud
 
-![frame_40_pcl](img/project_step_1/frame_40_pcl.png)
+![frame_40_pcl](img/project_step_1/annotated/frame_40_pcl.png)
 
 #### Range and Intensity
 
-![frame_40_range](img/project_step_1/frame_40_range.png)
+![frame_40_range](img/project_step_1/annotated/frame_40_range.png)
 
 ### Frame 65
 
@@ -38,47 +38,47 @@ There is also a notable errant point in the point cloud just in front of the sen
 
 #### Point cloud
 
-![frame_65_pcl](img/project_step_1/frame_65_pcl.png)
+![frame_65_pcl](img/project_step_1/annotated/frame_65_pcl.png)
 
 #### Range and Intensity
 
-![frame_65_range](img/project_step_1/frame_65_range.png)
+![frame_65_range](img/project_step_1/annotated/frame_65_range.png)
 
 ### Frame 100
 
-In this frame, it is clear to see that reflectors embedded in the road produce strong lidar returns. This could be interesting for lane-keeping.
+In this frame, it is clear to see that reflectors embedded in the road produce strong lidar returns (highlighted by blue boxes in the image). This could be interesting for lane-keeping.
 
 #### Point cloud
 
-![frame_100_pcl](img/project_step_1/frame_100_pcl.png)
+![frame_100_pcl](img/project_step_1/annotated/frame_100_pcl.png)
 
 #### Range and Intensity
 
-![frame_100_range](img/project_step_1/frame_100_range.png)
+![frame_100_range](img/project_step_1/annotated/frame_100_range.png)
 
 ### Frame 145
 
-In this frame, you can see two humans forward and to the left of the vehicle. They are wearing light colored clothing so they appear bright in the intensity image.
+In this frame, you can see two humans forward and to the left of the vehicle. They are wearing light colored clothing so they appear bright in the intensity image. They are annotated in red in the images below, with red arrows pointing toward them in the PCL image.
 
 #### Point cloud
 
-![frame_145_pcl](img/project_step_1/frame_145_pcl.png)
+![frame_145_pcl](img/project_step_1/annotated/frame_145_pcl.png)
 
 #### Range and Intensity
 
-![frame_145_range](img/project_step_1/frame_145_range.png)
+![frame_145_range](img/project_step_1/annotated/frame_145_range.png)
 
 ### Frame 195
 
-In this frame, the two humans are close to the vehicle and therefore appear very bright in the intensity image. Signs on the side of the road also appear very bright.
+In this frame, the two humans (again annotated in red) are close to the vehicle and therefore appear very bright in the intensity image. Signs on the side of the road also appear very bright.
 
 #### Point cloud
 
-![frame_195_pcl](img/project_step_1/frame_195_pcl.png)
+![frame_195_pcl](img/project_step_1/annotated/frame_195_pcl.png)
 
 #### Range and Intensity
 
-![frame_195_range](img/project_step_1/frame_195_range.png)
+![frame_195_range](img/project_step_1/annotated/frame_195_range.png)
 
 
 ## Final Project
