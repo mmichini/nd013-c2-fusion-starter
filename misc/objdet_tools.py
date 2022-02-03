@@ -268,7 +268,7 @@ def validate_object_labels(object_labels, pcl, configs, min_num_points):
         valid_flags[index] = valid_flags[index] and is_label_inside_detection_area(label_obj, configs)                     
 
         ## ... flagged as "difficult to detect" or not of type "vehicle" 
-        if(label.detection_difficulty_level > 0 or label.type != label_pb2.Label.Type.TYPE_VEHICLE):
+        if(label.detection_difficulty_level > 0 or label.type != 1):
             valid_flags[index] = False
         
     
