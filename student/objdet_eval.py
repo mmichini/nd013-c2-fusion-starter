@@ -71,10 +71,9 @@ def measure_detection_performance(detections, labels, labels_valid, min_iou=0.5)
                 # step 5 : compute the intersection over union (IOU) between label and detection bounding-box
                 detected_polygon, label_polygon = Polygon(
                     detected_box_corners), Polygon(label_box_corners)
-                intersection = label_polygon.intersection(
-                    detected_polygon).area
-                union = label_polygon.area + detected_polygon.area
-                iou = intersection / (union - intersection)
+                intersection = label_polygon.intersection(detected_polygon)
+                union = label_polygon.union(detected_polygon)
+                iou = intersection.area / union.area
 
                 # step 6 : if IOU exceeds min_iou threshold, store [iou,dist_x, dist_y, dist_z] in matches_lab_det and increase the TP count
                 if iou >= min_iou:

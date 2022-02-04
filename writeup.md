@@ -4,6 +4,12 @@
 
 In the midterm project, we were asked to visualize LIDAR point cloud data and describe our findings. The sections below include observations from 6 different frames in the provided "Sequence 3".
 
+### Common characteristics of each frame
+
+There are a few common features and characteristics in each frame. For example, in the image below, the red annotation indicates cars moving in the same direction as us, while green annotations indicate vehicles in the opposing traffic lane. This image also shows different types of vehicles. For example, the vehicle labeled `1` is towing a trailer, while other vehicles are not. Also, vehicles that are further away (such as `4`) have relatively few points associated with them compared to vehicles that are closer (such as `9`). This could cause issues with detecting far away vehicles.
+
+![frame_0_pcl](img/project_step_1/annotated/frame_0_annotated.png)
+
 ### Frame 0
 
 In this frame, it is clear that there are multiple other vehicles in the scene. A noteworthy one is the truck towing a trailer (red box) just in front and to the right of our vehicle. This immediately makes me think of how we might treat this from an object detection point of view. The truck+trailer is clearly one vehicle, but the truck may be detected as its own vehicle without the trailer, and therefore have an incorrect bounding box.
