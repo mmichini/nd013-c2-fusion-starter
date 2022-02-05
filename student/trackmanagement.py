@@ -27,7 +27,7 @@ class Track:
     def __init__(self, meas, id):
         print('creating track no.', id)
         M_rot = meas.sensor.sens_to_veh[0:3, 0:3] # rotation matrix from sensor to vehicle coordinates
-        
+
         ############
         # TODO Step 2: initialization:
         # - replace fixed track initialization values by initialization of x and P based on 
@@ -35,20 +35,31 @@ class Track:
         # - initialize track state and track score with appropriate values
         ############
 
-        self.x = np.matrix([[49.53980697],
-                        [ 3.41006279],
-                        [ 0.91790581],
-                        [ 0.        ],
-                        [ 0.        ],
-                        [ 0.        ]])
-        self.P = np.matrix([[9.0e-02, 0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00],
-                        [0.0e+00, 9.0e-02, 0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00],
-                        [0.0e+00, 0.0e+00, 6.4e-03, 0.0e+00, 0.0e+00, 0.0e+00],
-                        [0.0e+00, 0.0e+00, 0.0e+00, 2.5e+03, 0.0e+00, 0.0e+00],
-                        [0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00, 2.5e+03, 0.0e+00],
-                        [0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00, 0.0e+00, 2.5e+01]])
-        self.state = 'confirmed'
-        self.score = 0
+        # First, make sure this is really a lidar measurement
+        assert meas.sensor.name == 'lidar', "Expected an initial measurement of type 'lidar', not '{}'".format(meas.sensor.name)
+
+        # Convert meas from sensor to vehicle coordinates
+        pos_veh = M_rot * meas.z[0:3]
+
+        # Initialize state from measurement (note: we assume 0 velocity here which is a simplifying assumption)
+        self.x = np.zeros((6,1))
+        self.x[0:3] = pos_veh[0:3]
+
+        # Initialize state covariance
+        P_pos = M_rot * meas.R * np.transpose(M_rot)
+
+        P_vel = np.matrix([
+            [params.sigma_p44**2, 0, 0],
+            [0, params.sigma_p55**2, 0],
+            [0, 0, params.sigma_p66**2]])
+
+        self.P = np.zeros((6, 6))
+        self.P[0:3, 0:3] = P_pos
+        self.P[3:6, 3:6] = P_vel
+
+        # Initialize state and score
+        self.state = 'initialized'
+        self.score = 1.0 / params.window
         
         ############
         # END student code
@@ -106,10 +117,20 @@ class Trackmanagement:
             # check visibility    
             if meas_list: # if not empty
                 if meas_list[0].sensor.in_fov(track.x):
-                    # your code goes here
-                    pass 
+                    track.score -= 1.0 / params.window
+                    track.score = max(track.score, 0.0)
 
-        # delete old tracks   
+        # delete old tracks
+        for track in list(self.track_list):
+            if track.state == 'confirmed' and track.score < params.delete_threshold:
+                # track is confirmed, but has fallen below the threshold, so delete it
+                self.delete_track(track)
+            elif track.score <= 0.0:
+                # track score has reached zero - delete it
+                self.delete_track(track)
+            elif track.P[0,0] > params.max_P or track.P[1,1] > params.max_P:
+                # track's px or py covariance has gotten too large, so delete it
+                self.delete_track(track)
 
         ############
         # END student code
@@ -140,7 +161,14 @@ class Trackmanagement:
         # - set track state to 'tentative' or 'confirmed'
         ############
 
-        pass
+        track.score += 1.0 / params.window
+        track.score = min(track.score, 1.0)
+
+        if track.score >= params.confirmed_threshold:
+            track.state = 'confirmed'
+        else:
+            track.state = 'tentative'
+        
         
         ############
         # END student code

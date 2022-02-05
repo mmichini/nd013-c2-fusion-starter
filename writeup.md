@@ -88,11 +88,17 @@ In this frame, the two humans (again annotated in red) are close to the vehicle 
 
 ## Final Project
 
-### Note for step 1
+### RMSE Plots
 
-The instructions for Step 1 include a request to upload the RMSE plot. I've included it here:
+The instructions include a request to upload the RMSE plots for steps 1 through 3. I've included them below.
+
+#### Step 1 - Tracking
 
 ![step_1_rmse](img/final_project/step_1_RMSE.png)
+
+#### Step 2 - Track Management
+
+![step_2_rmse](img/final_project/step_2_RMSE.png)
 
 ### 1. Write a short recap of the four tracking steps and what you implemented there (filter, track management, association, camera fusion). Which results did you achieve? Which part of the project was most difficult for you to complete, and why?
 
