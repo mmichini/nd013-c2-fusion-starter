@@ -232,6 +232,8 @@ def plot_rmse(manager, all_labels, configs_det):
 def make_movie(path):
     # read track plots
     images = [img for img in sorted(os.listdir(path)) if img.endswith(".png")]
+    # skip the first one, because for some reason it is not the correct size
+    images = images[1:]
     frame = cv2.imread(os.path.join(path, images[0]))
     height, width, layers = frame.shape
 
