@@ -100,6 +100,10 @@ The instructions include a request to upload the RMSE plots for steps 1 through 
 
 ![step_2_rmse](img/final_project/step_2_RMSE.png)
 
+#### Step 3 - Data Association
+
+![step_3_rmse](img/final_project/step_3_RMSE.png)
+
 ### 1. Write a short recap of the four tracking steps and what you implemented there (filter, track management, association, camera fusion). Which results did you achieve? Which part of the project was most difficult for you to complete, and why?
 
 
